@@ -138,9 +138,9 @@ async def about_cbq(client: CodeXBotz, query: CallbackQuery):
 @CodeXBotz.on_callback_query(filters.regex('^markdownhelper$') & filters.admins)
 async def md_helper(client: CodeXBotz, query: CallbackQuery):
     try:
-        text = "This is your markdown help message."
-        if query.message.text != text:
-            await query.edit_message_text(text)
+        text = MARKDOWN_HELP
+        if not query.message or query.message.text != text:
+            await query.edit_message_text(text, parse_mode="HTML")
     except pyrogram.errors.MessageNotModified:
         print("Message is already up-to-date, skipping edit.")
     
