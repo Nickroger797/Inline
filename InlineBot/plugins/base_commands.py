@@ -6,7 +6,6 @@ from InlineBot import CodeXBotz, ADMINS, filters, Message, InlineKeyboardButton,
 
 from InlineBot.strings import START_MESSAGE, HELP_MESSAGE, ABOUT_MESSAGE, MARKDOWN_HELP
 from InlineBot.database import present_in_userbase, add_to_userbase
-from pyrogram import Client
 
 start_keyboard = [
     [
@@ -136,6 +135,8 @@ async def about_cbq(client: CodeXBotz, query: CallbackQuery):
 @CodeXBotz.on_callback_query(filters.regex('^markdownhelper$') & filters.admins)
 async def md_helper(client: CodeXBotz, query: CallbackQuery):
     pass
+    
+from pyrogram import Client
 
     class CodeXBotz(Client):
         def __init__(self):
