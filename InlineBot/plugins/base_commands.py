@@ -151,3 +151,5 @@ async def md_helper(client: CodeXBotz, query: CallbackQuery):
             )
 
     bot_instance = CodeXBotz()
+    
+    print("Bot instance created:", bot_instance)
