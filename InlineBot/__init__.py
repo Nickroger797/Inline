@@ -18,21 +18,29 @@ FILTER_COMMAND = os.environ.get('FILTER_COMMAND', 'add')
 DELETE_COMMAND = os.environ.get('DELETE_COMMAND', 'del')
 IS_PUBLIC = True if os.environ.get('IS_PUBLIC', 'True').lower() != 'false' else False
 try:
-    ADMINS=[OWNER_ID]
-    for x in (os.environ.get("ADMINS", "").split()):
-        ADMINS.append(int(x))
-except ValueError:
-        raise Exception("Your Admins list does not contain valid integers.")
-
-try:
-    APP_ID = int(APP_ID)
-except ValueError:
-    raise ValueError("APP_ID must be a valid integer.")
-
-try:
     TG_BOT_WORKERS = int(TG_BOT_WORKERS)
 except ValueError:
     raise ValueError("TG_BOT_WORKERS must be a valid integer.")
+
+# Validate PORT
+try:
+    PORT = int(PORT)
+except ValueError:
+    raise ValueError("PORT must be a valid integer.")
+
+# Ensure essential variables are set
+if not API_HASH:
+    raise ValueError("API_HASH is missing! Set it in environment variables.")
+if not BOT_TOKEN:
+    raise ValueError("BOT_TOKEN is missing! Set it in environment variables.")
+
+# Validate ADMINS list
+try:
+    ADMINS = [OWNER_ID]
+    for x in os.environ.get("ADMINS", "").split():
+        ADMINS.append(int(x))
+except ValueError:
+    raise Exception("Your Admins list does not contain valid integers.")
 
 #---------- ---------- ---------- ----------
 
