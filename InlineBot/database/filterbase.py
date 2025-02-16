@@ -50,7 +50,7 @@ async def get_all_filters():
     return texts
 
 async def count_filters():
-    count = filter_collection.find().count()
+    count = filter_collection.count_documents({})
     return count
 
 async def del_all(message):
@@ -60,7 +60,7 @@ async def del_all(message):
         return
 
     try:
-        filter_collection.remove()
+        filter_collection.delete_many({})
         await message.edit_text("All filters deleted.!")
     except:
         await message.edit_text(f"Couldn't remove all of your filters")
