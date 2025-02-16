@@ -24,6 +24,16 @@ try:
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
 
+try:
+    APP_ID = int(APP_ID)
+except ValueError:
+    raise ValueError("APP_ID must be a valid integer.")
+
+try:
+    TG_BOT_WORKERS = int(TG_BOT_WORKERS)
+except ValueError:
+    raise ValueError("TG_BOT_WORKERS must be a valid integer.")
+
 #---------- ---------- ---------- ----------
 
 import logging
