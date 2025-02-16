@@ -57,7 +57,7 @@ def LOGGER(name: str) -> logging.Logger:
 #---------- ---------- ---------- ----------
 from pyrogram import Client
 
-class CodeXBot(Client):
+class CodeXBotz(Client):
     def __init__(self):
         self.LOGGER = logging.getLogger(__name__)
         self.LOGGER.setLevel(logging.INFO)
