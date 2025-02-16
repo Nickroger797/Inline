@@ -134,14 +134,18 @@ async def about_cbq(client: CodeXBotz, query: CallbackQuery):
     
 @CodeXBotz.on_callback_query(filters.regex('^markdownhelper$') & filters.admins)
 async def md_helper(client: CodeXBotz, query: CallbackQuery):
+    pass
+
     class CodeXBotz(Client):
-    def __init__(self):
-        super().__init__(
-            "bot",
-            api_hash=API_HASH,
-            api_id=APP_ID,
-            bot_token=BOT_TOKEN,
-            plugins={"root": "InlineBot/plugins"},
-            workers=TG_BOT_WORKERS,
-            parse_mode="HTML"
-        )
+        def __init__(self):
+            super().__init__(
+                "bot",
+                api_hash=API_HASH,
+                api_id=APP_ID,
+                bot_token=BOT_TOKEN,
+                plugins={"root": "InlineBot/plugins"},
+                workers=TG_BOT_WORKERS,
+                parse_mode="HTML"
+            )
+
+    bot_instance = CodeXBotz()
