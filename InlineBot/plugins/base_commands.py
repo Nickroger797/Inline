@@ -119,6 +119,8 @@ async def help_cbq(client: CodeXBotz, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(help_keyboard)
     )
     
+from pyrogram import Client
+
 @CodeXBotz.on_callback_query(filters.regex('^about$'))
 async def about_cbq(client: CodeXBotz, query: CallbackQuery):
     user_id = query.from_user.id
@@ -136,8 +138,6 @@ async def about_cbq(client: CodeXBotz, query: CallbackQuery):
 async def md_helper(client: CodeXBotz, query: CallbackQuery):
     pass
     
-from pyrogram import Client
-
     class CodeXBotz(Client):
         def __init__(self):
             super().__init__(
