@@ -1,2 +1,2 @@
-from InlineBot import CodeXBot
-CodeXBot().run()
+from InlineBot import CodeXBotz
+CodeXBotz().run()
