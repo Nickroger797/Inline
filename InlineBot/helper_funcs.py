@@ -16,8 +16,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 logger.info("Generating button...")
-logger.error(f"Error in upload_photo: {t_e}")
-
+try:
+    pass
+except Exception as t_e:
+    logger.error(f"Error in upload_photo: {t_e}")
 
 BTN_URL_REGEX = r"(?:\[(.*)\]\((buttonurl|buttonalert):([^)]*)\))"
 
