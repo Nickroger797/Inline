@@ -142,7 +142,7 @@ async def md_helper(client: CodeXBotz, query: CallbackQuery):
     try:
         text = MARKDOWN_HELP
         if not query.message or query.message.text != text:
-            await query.edit_message_text(text, parse_mode="HTML")
+            await query.edit_message_text(text, parse_mode=ParseMode.HTML)
     except pyrogram.errors.MessageNotModified:
         print("Message is already up-to-date, skipping edit.")
     
