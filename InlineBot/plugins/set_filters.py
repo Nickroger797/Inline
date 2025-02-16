@@ -35,7 +35,7 @@ async def new_filter(client: CodeXBotz, message: Message):
     args = message.text.html.split(None, 1)
     
     if len(args) < 2:
-        await message.reply_text("Use Correct format 😐", quote=True)
+        await message.reply_text("Use Correct format 😔", quote=True)
         return
     
     extracted = split_quotes(args[1])
@@ -43,14 +43,14 @@ async def new_filter(client: CodeXBotz, message: Message):
     msg_type = 'Text'
    
     if not message.reply_to_message and len(extracted) < 2:
-        await message.reply_text("Add some content to save your filter!", quote=True)
+        await message.reply_text("🧊 Add some content to save your filter!", quote=True)
         return
 
     if (len(extracted) >= 2) and not message.reply_to_message:
         reply_text, btn, alert = generate_button(extracted[1], strid)
         fileid = None
         if not reply_text:
-            await message.reply_text("You cannot have buttons alone, give some text to go with it!", quote=True)
+            await message.reply_text("🤭 You cannot have buttons alone, give some text to go with it!", quote=True)
             return
 
     elif message.reply_to_message and message.reply_to_message.reply_markup:
@@ -217,7 +217,7 @@ async def new_filter(client: CodeXBotz, message: Message):
             )
     except Exception as a:
         try:
-            await message.reply(text = f"<b>❌ Error</b>\n\n{str(a)}\n\n<i>Join @CodeXBotzSupport for Support</i>")
+            await message.reply(text = f"<b>👀 Error</b>\n\n{str(a)}\n\n<i>Join @codexbotmaker for Support</i>")
         except:
             pass
         return
@@ -226,8 +226,8 @@ async def new_filter(client: CodeXBotz, message: Message):
     reply_markup = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(text = 'Share filter', switch_inline_query = text),
-                InlineKeyboardButton(text = 'Try Here', switch_inline_query_current_chat = text)
+                InlineKeyboardButton(text = '💠Share filter', switch_inline_query = text),
+                InlineKeyboardButton(text = '💀Try Here', switch_inline_query_current_chat = text)
             ]
         ]
     )
@@ -239,7 +239,7 @@ async def del_filter(client: CodeXBotz, message: Message):
         cmd, text = message.text.split(" ", 1)
     except:
         await message.reply_text(
-            "<i>Mention the filtername which you wanna delete!</i>\n\n"
+            "<i>🍁Mention the filtername which you wanna delete!</i>\n\n"
             f"<code>/{DELETE_COMMAND.lower()} filtername</code>\n\n"
             "Use /filters to view all available filters",
             quote=True
@@ -254,7 +254,7 @@ async def get_all(client: CodeXBotz, message: Message):
     texts = await get_all_filters()
     count = await count_filters()
     if count:
-        filterlist = f"<b>Bot have total {count} filters</b>\n\n"
+        filterlist = f"<b>🏮Bot have total {count} filters</b>\n\n"
 
         for text in texts:
             keywords = f" ○  <code>{text}</code>\n"
@@ -270,7 +270,7 @@ async def get_all(client: CodeXBotz, message: Message):
                 await sts.delete()
             return
     else:
-        filterlist = f"<b>Bot have no filters.!</b>"
+        filterlist = f"<b>😔Bot have no filters.!</b>"
 
     await message.reply_text(
         text=filterlist,
@@ -288,7 +288,7 @@ async def delallconfirm(client, message):
         ]
     )
     await message.reply_text(
-        f"This will delete all of your filters.\nAre you sure you want do this.?",
+        f"🌊This will delete all of your filters.\n🪄Are you sure you want do this.?",
         reply_markup = reply_markup,
         quote=True
     )
