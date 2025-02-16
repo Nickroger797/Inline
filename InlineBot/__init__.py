@@ -57,7 +57,7 @@ def LOGGER(name: str) -> logging.Logger:
 #---------- ---------- ---------- ----------
 from pyrogram import Client
 
-class CodeXBotz(Client):
+class CodeXBot(Client):
     def __init__(self):
         self.LOGGER = logging.getLogger(__name__)
         self.LOGGER.setLevel(logging.INFO)
@@ -74,13 +74,13 @@ class CodeXBotz(Client):
             workers=TG_BOT_WORKERS,
             bot_token=BOT_TOKEN
         )
-        self.LOGGER.info("Created by Code X Botz\nhttps://t.me/CodeXBotz")
+        self.LOGGER.info("Created by Code X Bot\nhttps://t.me/codexbotmaker")
 
     async def start(self):
         await super().start()
         bot_details = await self.get_me()
         self.LOGGER.info(f"@{bot_details.username}  started!")
-        self.LOGGER.info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
+        self.LOGGER.info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩\nhttps://t.me/codexbotmaker")
         self.bot_details = bot_details
         
         async def web_server():
