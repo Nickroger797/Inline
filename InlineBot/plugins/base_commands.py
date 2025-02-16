@@ -120,6 +120,8 @@ async def help_cbq(client: CodeXBotz, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(help_keyboard)
     )
     
+import pyrogram
+from pyrogram.enums import ParseMode
 from pyrogram import Client
 
 @CodeXBotz.on_callback_query(filters.regex('^about$'))
