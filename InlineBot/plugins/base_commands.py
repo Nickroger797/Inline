@@ -143,5 +143,5 @@ async def md_helper(client: CodeXBotz, query: CallbackQuery):
             bot_token=BOT_TOKEN,
             plugins={"root": "InlineBot/plugins"},
             workers=TG_BOT_WORKERS,
-            parse_mode="html"
+            parse_mode="HTML"
         )
