@@ -6,7 +6,7 @@ from InlineBot import CodeXBotz, ADMINS, filters, Message, InlineKeyboardButton,
 
 from InlineBot.strings import START_MESSAGE, HELP_MESSAGE, ABOUT_MESSAGE, MARKDOWN_HELP
 from InlineBot.database import present_in_userbase, add_to_userbase
-from __init__ import API_HASH, APP_ID, BOT_TOKEN, TG_BOT_WORKERS
+from InlineBot.__init__ import API_HASH, APP_ID, BOT_TOKEN, TG_BOT_WORKERS
 
 start_keyboard = [
     [
