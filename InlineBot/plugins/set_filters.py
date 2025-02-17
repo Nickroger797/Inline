@@ -46,18 +46,18 @@ async def new_filter(client: CodeXBotz, message: Message):
     if not message.reply_to_message and len(extracted) < 2:
         await message.reply_text("⚠️ Add some content to save your filter!", quote=True)
         return
-  
+        
     if len(extracted) > 1 and not message.reply_to_message:
         logging.info(f"Extracted content: {extracted}")  # Log extracted data
         logging.info(f"Generating button with extracted={extracted[1]}, strid={strid}")
 
-        result = generate_button(extracted[1], strid) if len(extracted) > 1 else None
-        logging.info(f"generate_button() returned: {result}")
+        result = generate_button(extracted[1], strid)
 
-        if not result or not isinstance(result, tuple) or len(result) != 3:
-            logging.error(f"Invalid button generation result: {result}")
-            await message.reply_text("⚠️ Button generation failed due to an internal error!", quote=True)
+        if not result:
+            await message.reply_text("⚠️ No buttons found! Use: [Text](buttonurl:URL)", quote=True)
             return
+
+        logging.info(f"generate_button() returned: {result}")  # Log only if result is valid
 
         try:
             reply_text, btn, alert = result
@@ -69,7 +69,7 @@ async def new_filter(client: CodeXBotz, message: Message):
             logging.error(f"Error unpacking generate_button result: {e}, result={result}")
             await message.reply_text("⚠️ An error occurred while generating the button!", quote=True)
             return
-        
+            
     elif message.reply_to_message and message.reply_to_message.reply_markup:
         reply_text = ""
         btn = []
