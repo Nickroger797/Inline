@@ -63,16 +63,16 @@ async def new_filter(client: CodeXBotz, message: Message):
         try:
             reply_text, btn, alert = result
 
+        except Exception as e:
+            logging.error(f"Error unpacking generate_button result: {e}, result={result}")
+            await message.reply_text("⚠️ An error occurred while generating the button!", quote=True)
+            return
+
         if not reply_text.strip():  # Ensure it's not just spaces
             logging.error(f"reply_text is empty! Extracted: {extracted}")
             await message.reply_text("❗ You cannot have buttons alone, give some text to go with it!", quote=True)
             return
 
-        except Exception as e:
-            logging.error(f"Error unpacking generate_button result: {e}, result={result}")
-            await message.reply_text("⚠️ An error occurred while generating the button!", quote=True)
-            return
-            
     elif message.reply_to_message and message.reply_to_message.reply_markup:
         reply_text = ""
         btn = []
