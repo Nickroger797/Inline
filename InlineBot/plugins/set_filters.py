@@ -48,23 +48,26 @@ async def new_filter(client: CodeXBotz, message: Message):
         return
   
     if len(extracted) > 1 and not message.reply_to_message:
+        logging.info(f"Extracted content: {extracted}")  # Log extracted data
         logging.info(f"Generating button with extracted={extracted[1]}, strid={strid}")
 
-        result = generate_button(extracted[1], strid) if extracted else None
+        result = generate_button(extracted[1], strid) if len(extracted) > 1 else None
+        logging.info(f"generate_button() returned: {result}")
 
-        if result:
-            try:
-                reply_text, btn, alert = result
+        if not result or not isinstance(result, tuple) or len(result) != 3:
+            logging.error(f"Invalid button generation result: {result}")
+            await message.reply_text("⚠️ Button generation failed due to an internal error!", quote=True)
+            return
 
-                if not reply_text:
-                    await message.reply_text("❗ You cannot have buttons alone, give some text to go with it!", quote=True)
-                    return
-            except Exception as e:
-                logging.error(f"Error unpacking generate_button result: {e}")
-                await message.reply_text("⚠️ An error occurred while generating the button!", quote=True)
+        try:
+            reply_text, btn, alert = result
+
+            if not reply_text:
+                await message.reply_text("❗ You cannot have buttons alone, give some text to go with it!", quote=True)
                 return
-        else:
-            await message.reply_text("⚠️ Failed to generate buttons!", quote=True)
+        except Exception as e:
+            logging.error(f"Error unpacking generate_button result: {e}, result={result}")
+            await message.reply_text("⚠️ An error occurred while generating the button!", quote=True)
             return
         
     elif message.reply_to_message and message.reply_to_message.reply_markup:
