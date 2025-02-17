@@ -57,14 +57,17 @@ async def new_filter(client: CodeXBotz, message: Message):
             await message.reply_text("⚠️ No buttons found! Use: [Text](buttonurl:URL)", quote=True)
             return
 
-        logging.info(f"generate_button() returned: {result}")  # Log only if result is valid
-
+        logging.info(f"generate_button() returned: {result}")
+        logging.info(f"Final reply_text before button check: {reply_text}")  
+        
         try:
             reply_text, btn, alert = result
 
-            if not reply_text:
-                await message.reply_text("❗ You cannot have buttons alone, give some text to go with it!", quote=True)
-                return
+        if not reply_text.strip():  # Ensure it's not just spaces
+            logging.error(f"reply_text is empty! Extracted: {extracted}")
+            await message.reply_text("❗ You cannot have buttons alone, give some text to go with it!", quote=True)
+            return
+
         except Exception as e:
             logging.error(f"Error unpacking generate_button result: {e}, result={result}")
             await message.reply_text("⚠️ An error occurred while generating the button!", quote=True)
