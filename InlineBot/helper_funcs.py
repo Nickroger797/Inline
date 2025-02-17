@@ -89,6 +89,11 @@ def generate_button(text: str, id: str):
         return None
 
     clean_text = re.sub(BTN_URL_REGEX, "", text, re.MULTILINE).strip()
+
+    if not clean_text:
+        logging.warning(f"clean_text is empty! Using original text: '{text}'")
+        clean_text = text
+
     logging.info(f"generate_button returning: clean_text='{clean_text}', btns={btns}, datalist={datalist}")
 
     return remove_md(clean_text), btns, datalist
