@@ -5,6 +5,7 @@
 import io
 import re
 import uuid
+import logging
 
 from InlineBot import (
     CodeXBotz,
