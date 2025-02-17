@@ -70,31 +70,41 @@ def remove_md(text: str) -> str:
     return replace_href(html.escape(text.strip()))
 
 def generate_button(text: str, id: str):
+    logging.info(f"generate_button received: text='{text}', id='{id}'")
+
     if not text:
+        logging.error("generate_button failed: text is empty!")
         return None
 
-    text = text.strip()  # Remove any unnecessary spaces
+    text = text.strip()  # Remove unnecessary spaces
     btns = []
     datalist = []
     matches = list(re.finditer(BTN_URL_REGEX, text, re.MULTILINE))
+
+    logging.info(f"Regex matches found: {matches}")
+
     if not matches:
+        logging.error("generate_button failed: No button matches found!")
         return None
 
     j = 0
     for match in matches:
         button_text = match.group(1).strip()
-        button_text = re.sub(r'<(b|i|code|u|s)>|</(b|i|code|u|s)>', '', button_text)
+        button_text = re.sub(r"<b>|</b>|<code>|</code>|<u>|</u>|<i>|</i>", "", button_text)
 
         btn_type, btn_data = match.group(2), match.group(3).strip()
 
-        if btn_type == 'buttonurl':
+        if btn_type == "buttonurl":
             btns.append([InlineKeyboardButton(text=button_text, url=btn_data)])
-        elif btn_type == 'buttonalert' and len(btn_data) < 200:
+        elif btn_type == "buttonalert" and len(btn_data) < 200:
             datalist.append(btn_data)
             btns.append([InlineKeyboardButton(text=button_text, callback_data=f"alertmessage:{j}:{id}")])
             j += 1
 
-    clean_text = re.sub(BTN_URL_REGEX, '', text, re.MULTILINE).strip()
+    clean_text = re.sub(BTN_URL_REGEX, "", text, re.MULTILINE).strip()
+    
+    logging.info(f"generate_button returning: clean_text='{clean_text}', btns={btns}, datalist={datalist}")
+    
     return remove_md(clean_text), btns, datalist
 
 def remove_escapes(text: str) -> str:
