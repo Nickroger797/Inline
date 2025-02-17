@@ -47,10 +47,26 @@ async def new_filter(client: CodeXBotz, message: Message):
         return
 
     if (len(extracted) >= 2) and not message.reply_to_message:
-        reply_text, btn, alert = generate_button(extracted[1], strid)
-        fileid = None
-        if not reply_text:
-            await message.reply_text("🤭 You cannot have buttons alone, give some text to go with it!", quote=True)
+        # Add logging to debug
+        print(f"Generating button with extracted={extracted[1]}, strid={strid}")
+    
+        # Call the function
+        result = generate_button(extracted[1], strid)
+    
+        # Check if result is None or not iterable
+        if result:
+            try:
+                reply_text, btn, alert = result
+                # Check for empty reply_text
+                if not reply_text:
+                    await message.reply_text("❗ You cannot have buttons alone, give some text to go with it!", quote=True)
+                    return
+            except Exception as e:
+                print(f"Error unpacking generate_button result: {e}")
+                await message.reply_text("⚠️ An error occurred while generating the button!", quote=True)
+                return
+        else:
+            await message.reply_text("⚠️ Failed to generate buttons!", quote=True)
             return
 
     elif message.reply_to_message and message.reply_to_message.reply_markup:
