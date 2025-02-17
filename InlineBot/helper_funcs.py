@@ -21,7 +21,7 @@ try:
 except Exception as t_e:
     logger.error(f"Error in upload_photo: {t_e}")
 
-BTN_URL_REGEX = r"(?:\[(.*)\]\((buttonurl|buttonalert):([^)]*)\))"
+BTN_URL_REGEX = r"\[(.+?)\](?:\((buttonurl|buttonalert):(.+?)\))?"
 
 SMART_OPEN = '“'
 SMART_CLOSE = '”'
@@ -85,7 +85,10 @@ def generate_button(text: str, id: str):
 
     if not matches:
         logging.error("generate_button failed: No button matches found!")
-        return None
+        return None  # Keep this if buttons are required
+
+        # Send a message to the user if needed
+        # await message.reply_text("⚠️ No buttons found! Use: [Text](buttonurl:URL)", quote=True)
 
     j = 0
     for match in matches:
