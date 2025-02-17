@@ -85,14 +85,9 @@ def generate_button(text: str, id: str):
 
     if not matches:
         logging.error("generate_button failed: No button matches found!")
-        return None  # Keep this if buttons are required
-
-        # Optional: Inform the user
-        await message.reply_text(
-            "⚠️ No buttons found! Use the format: [Text](buttonurl:URL) or [Text](buttonalert:Alert Message)",
-            quote=True
-        )
-
+        print("⚠️ No buttons found! Use the format: [Text](buttonurl:URL) or [Text](buttonalert:Alert Message)")
+        return None
+        
     j = 0
     for match in matches:
         button_text = match.group(1).strip()
