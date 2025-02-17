@@ -87,7 +87,12 @@ def generate_button(text: str, id: str):
         logging.error("generate_button failed: No button matches found!")
         print("⚠️ No buttons found! Use the format: [Text](buttonurl:URL) or [Text](buttonalert:Alert Message)")
         return None
-        
+
+    clean_text = re.sub(BTN_URL_REGEX, "", text, re.MULTILINE).strip()
+    logging.info(f"generate_button returning: clean_text='{clean_text}', btns={btns}, datalist={datalist}")
+
+    return remove_md(clean_text), btns, datalist
+   
     j = 0
     for match in matches:
         button_text = match.group(1).strip()
