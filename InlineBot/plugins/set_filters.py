@@ -31,12 +31,13 @@ from InlineBot import FILTER_COMMAND, DELETE_COMMAND
 
 @CodeXBotz.on_message(filters.command(FILTER_COMMAND) & filters.admins)
 async def new_filter(client: CodeXBotz, message: Message):
+    reply_text = ""
 
     strid = str(uuid.uuid4())
     args = message.text.html.split(None, 1)
-    
+
     if len(args) < 2:
-        await message.reply_text("Use Correct format 😔", quote=True)
+        await message.reply_text("Use Correct format 😊", quote=True)
         return
     
     extracted = split_quotes(args[1])
